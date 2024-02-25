@@ -1,8 +1,17 @@
-import sqlite3
+
 from flet import *
 
-conn = sqlite3.connect("assets/mibase.db", check_same_thread=False)
-cursor=conn.cursor()
+import os
+from supabase import create_client, Client
+from dotenv import load_dotenv
+load_dotenv()
+
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
+
+
+
 
 
 
@@ -17,8 +26,7 @@ def main(page:Page):
     id_value=""
     def deletebtn(e):
         try:
-            cursor.execute("delete from user where id=?",str(e.control.data['id']))
-            conn.commit()
+            supabase.table('user').delete().eq('id', e.control.data['id']).execute()
             mydt.rows.clear()
             load_data()
             page.snack_bar=SnackBar(                
@@ -36,9 +44,7 @@ def main(page:Page):
     def savedata(e):
         try:
             global id_value            
-            values=(edit_nametext.value,edit_agetext.value,str(id_value))            
-            cursor.execute("update user set name=?, edad=? where id=?",values)
-            conn.commit()
+            supabase.table('user').update({'name':edit_nametext.value, 'edad':edit_agetext.value}).eq('id', id_value).execute()
             dialog.open=False
             edit_agetext.value=""
             edit_nametext.value=""            
@@ -74,11 +80,9 @@ def main(page:Page):
         page.update()
        
     def load_data():
-        cursor.execute("select * from user")
-        results=cursor.fetchall()
-        columns=[column[0] for column in cursor.description]
-        rows=[dict(zip(columns,row))for row in results]
-        for row in rows:
+        response = supabase.table('user').select("*").execute()
+
+        for row in response.data:
             mydt.rows.append(
                 DataRow(
                     cells=[
@@ -97,14 +101,12 @@ def main(page:Page):
                 )
             )
         page.update()
+        
 
 
     def addtodb(e):
         try:
-            val=(nametext.value,agetext.value)
-            cursor.execute("INSERT INTO user (name,edad) VALUES(?,?)",val)
-            print(cursor.rowcount," inserted!!")
-            conn.commit()
+            supabase.table('user').insert({"edad": agetext.value, "name":nametext.value}).execute()
             mydt.rows.clear()
             load_data()
             page.snack_bar=SnackBar(
