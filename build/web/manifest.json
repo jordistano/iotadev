@@ -1,6 +1,6 @@
 {
-    "name": "iotadev",
-    "short_name": "iotadev",
+    "name": "crud",
+    "short_name": "crud",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
