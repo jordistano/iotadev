@@ -4,6 +4,7 @@ from flet import *
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
+# import flet_fastapi
 load_dotenv()
 
 url: str = os.environ.get("SUPABASE_URL")
@@ -147,5 +148,5 @@ def main(page:Page):
     load_data()
 
 
-
-app(target=main, assets_dir="assets")
+#app = flet_fastapi.app(main)
+app(target=main, assets_dir="assets",view=AppView.FLET_APP_WEB)
