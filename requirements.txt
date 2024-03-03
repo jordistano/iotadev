@@ -1,7 +1,3 @@
-supabase
-python-dotenv
-flet
-fastapi
-fastapi-socketio
 flet-fastapi
-uvicorn
+flet
+
