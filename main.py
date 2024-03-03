@@ -1,25 +1,8 @@
-import uvicorn
-#from fastapi import FastAPI
+from fastapi import FastAPI
 
-import flet as ft
-import flet_fastapi
+app = FastAPI()
 
-async def main(page: ft.Page):
-    counter = ft.Text("0", size=50, data=0)
+@app.get("/")
+async def root():
+    return {"message": "Hello from FastAPI!"}
 
-    async def add_click(e):
-        counter.data += 1
-        counter.value = str(counter.data)
-        await counter.update_async()
-
-    page.floating_action_button = ft.FloatingActionButton(
-        icon=ft.icons.ADD, on_click=add_click
-    )
-    await page.add_async(
-        ft.Container(counter, alignment=ft.alignment.center, expand=True)
-    )
-
-app = flet_fastapi.app(main)
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
