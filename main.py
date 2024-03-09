@@ -18,4 +18,4 @@ async def main(page: ft.Page):
     )
  
 directorio=os.getcwd()+"/assets"
-app = flet_fastapi.app(main, assets_dir=str(directorio)
+app = flet_fastapi.app(main, assets_dir=str(directorio))
