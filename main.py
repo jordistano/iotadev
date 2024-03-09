@@ -18,6 +18,3 @@ async def main(page: ft.Page):
  
 
 app = flet_fastapi.app(main)
-@app.websocket("/app1/ws")
-async def flet_app(websocket: flet_fastapi.WebSocket):
-    await flet_fastapi.FletApp(main).handle(websocket) 
