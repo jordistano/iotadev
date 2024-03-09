@@ -17,4 +17,4 @@ async def main(page: ft.Page):
     )
  
 
-app = flet_fastapi.app(main, assets_dir="/assets")
+app = flet_fastapi.app(main, assets_dir="assets")
