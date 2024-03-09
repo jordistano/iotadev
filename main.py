@@ -1,5 +1,6 @@
 import flet as ft
 import flet_fastapi
+import os
 
 async def main(page: ft.Page):
     counter = ft.Text("0", size=50, data=0)
@@ -16,5 +17,5 @@ async def main(page: ft.Page):
         ft.Container(counter, alignment=ft.alignment.center, expand=True)
     )
  
-
-app = flet_fastapi.app(main, assets_dir="assets")
+directorio=os.getcwd()+"/assets"
+app = flet_fastapi.app(main, assets_dir=str(directorio)
