@@ -1,5 +1,2 @@
 flet
-flet-fastapi
 supabase
-python-dotenv
-uvicorn
