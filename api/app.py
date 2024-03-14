@@ -128,5 +128,5 @@ def main(page: Page):
   load_data()
 
 
-
-app(target=main,view=AppView.WEB_BROWSER, assets_dir="assets")
+directorio=os.getcwd()+"/assets"
+app(target=main,view=AppView.WEB_BROWSER, assets_dir=str(directorio))
